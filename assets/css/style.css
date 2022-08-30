@@ -1,3 +1,9 @@
 body {
     font-family: 'EB Garamond', serif;
+    box-sizing: border-box;
+    line-height: 1.5rem;
+}
+
+header {
+    background-image: linear-gradient(to left, darkblue, seagreen);
 }
