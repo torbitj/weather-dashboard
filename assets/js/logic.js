@@ -10,9 +10,11 @@ var currentWeatherEl = $("#current-container");
 var currentTitleList = $("#title-date");
 var forecastEl = $('.forecast')
 var cityListEl = $('.city-list')
+var currentDate = moment()
 
 var citiesArray = [];
-var currentConditions = []
+var currentConditions = [];
+var forecastArray = []
 
 function geoLatLon(event) {
   event.stopPropagation();
@@ -125,18 +127,25 @@ function currentWeather(data, weather) {
 }
 
 function forecastWeather (weather) {
+    forecastArray = []
+    console.log(weather)
     for (i = 0; i < 5; i++) {
         var forecastIcon = weather.daily[i].weather[0].icon
-        var forecastTemp = `Temperature: ${weather.daily[i].temp.day}`
+        var forecastTemp = `Temperature: ${weather.daily[i].temp.max}`
         var forecastWind = `Wind Speed: ${weather.daily[i].wind_speed}`
         var forecastHumid = `Humidity: ${weather.daily[i].humidity}`
-
-        
+        var forecastDate = currentDate.add((i+1)-i, 'days').format('MM/DD/YYY')
+        var forecastObj = {
+            date: forecastDate,
+            icon: forecastIcon,
+            temp: forecastTemp,
+            wind: forecastWind,
+            humid: forecastHumid
+        }
+        console.log(forecastObj)
+        forecastArray.push(forecastObj)
     } 
-    
-    console.log(weather.daily[0])
-    console.log(weather.daily[0].temp.day)
-    console.log(weather.daily[0].weather[0].icon)
+    // forecastArray.forEach(day)
 }
 
 function cityListRender () {
