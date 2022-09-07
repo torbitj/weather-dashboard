@@ -62,7 +62,7 @@ function currentWeather(data, weather) {
   var temp = `Temperature is: ${weather.current.temp}°F`;
   var humid = `Humidity is: ${weather.current.humidity}%`;
   var wind = `Wind Speed is: ${weather.current.wind_speed} MPH`;
-  var uv = `UV Index is: ${weather.current.uvi} `;
+  var uv = `UV Index is: ${weather.current.uvi}`;
 
   currentConditions.push(temp, humid, wind, uv);
   console.log(currentConditions);
@@ -79,10 +79,31 @@ function currentWeather(data, weather) {
   currentTitleList.append(heading, dateLi, iconLi);
 
   currentConditions.forEach(function (condition) {
-    var condLi = $("<li>").addClass("current-condition list-unstyled p-2");
+    var condLi = $("<li>").addClass("current-condition list-unstyled p-2").attr('data-index', condition);
     condLi.text(condition);
     currentWeatherList.append(condLi);
+    console.log(currentWeatherList[0].childNodes)
   });
+  if (0 < weather.current.uvi < 3) {
+    currentWeatherList[0].childNodes[3].style.backgroundColor = 'green'
+  } 
+  
+  if (2 < weather.current.uvi < 6) {
+    currentWeatherList[0].childNodes[3].style.backgroundColor = 'yellow'
+  } 
+  
+  if (5 < weather.current.uvi < 8) {
+    currentWeatherList[0].childNodes[3].style.backgroundColor = 'orange'
+  } 
+  
+  if (7 < weather.current.uvi < 10) {
+    currentWeatherList[0].childNodes[3].style.backgroundColor = 'red'
+  }
+
+  if (9 < weather.current.uvi) {
+    currentWeatherList[0].childNodes[3].style.backgroundColor = 'purple'
+    currentWeatherList[0].childNodes[3].style.color = 'white'
+  }
 }
 
 searchEl.on("click", ".btn", geoLatLon);
