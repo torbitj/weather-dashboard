@@ -1,7 +1,15 @@
+/* Root */
+:root {
+    --darkblue: darkblue;
+    --iconhw: 45px;
+}
+
+/* Universal */
 * {
     box-sizing: border-box;
 }
 
+/* Elements */
 body {
     font-family: 'EB Garamond', serif;
     box-sizing: border-box;
@@ -18,6 +26,7 @@ footer {
     height: 40px;
 }
 
+/* Classes */
 .textinput {
     resize: none;
     height: 40px;
@@ -28,12 +37,13 @@ footer {
     height: 400px;
     background-image: linear-gradient(to left, rgba(8, 113, 211, 0.562), rgba(26, 201, 105, 0.562));
     width: 100%;
-    border: solid 2px darkblue;
+    border: solid 2px var(--darkblue);
 }
 
 .current-condition {
     font-size: 125%;
-    width: 300px;
+    width: 230px;
+    border-radius: 10px;
 }
 
 .current-heading {
@@ -42,8 +52,8 @@ footer {
 }
 
 .current-heading img {
-    height: 45px;
-    width: 45px;
+    height: var(--iconhw);
+    width: var(--iconhw);
 }
 
 .forecast, #foreTitle {
@@ -62,7 +72,7 @@ footer {
 }
 
 .city-select {
-    border: solid darkblue 2px;
+    border: solid var(--darkblue) 2px;
     border-radius: 10px;
     width: fit-content;
     font-size: 18px;
@@ -75,13 +85,13 @@ footer {
 }
 
 .forecast-icon img {
-    height: 45px;
-    width: 45px;
+    height: var(--iconhw);
+    width: var(--iconhw);
 }
 
 .remove {
     background-color: lightblue;
-    border-color: darkblue;
+    border-color: var(--darkblue);
 }
 
 .remove:hover {
@@ -103,7 +113,7 @@ footer {
     right: 0;
     top: 0;
     color: white;
-    font-size: 45px;
+    font-size: var(--iconhw);
     font-weight: bold;
 }
 
@@ -114,6 +124,7 @@ footer {
   cursor: pointer;
 }
 
+/* IDs */
 #search {
     height: 200px;
 }
@@ -149,3 +160,12 @@ footer {
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
   }
+
+  /* Media Query */
+  @media screen and (max-width: 768px){
+    .current-condition {
+        width:fit-content;
+        height: 35px;
+      }
+  }
+  

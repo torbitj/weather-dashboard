@@ -1,3 +1,4 @@
+// Global Variables
 var cityInputEl = $(".textinput");
 var searchEl = $("#search");
 var recentCities = $("#recentCities");
@@ -20,6 +21,7 @@ var citiesArray = [];
 var currentConditions = [];
 var forecastArray = []
 
+// Geocode API for lat and long and modal if no city input is provided
 function geoLatLon(event) {
   event.stopPropagation();
   recentCities.empty()
@@ -28,7 +30,6 @@ function geoLatLon(event) {
     fetch(geocodeAPI + "&q=" + cityInput).then(function (response) {
         if (response.ok) {
         response.json().then(function (data) {
-            console.log(data);
             localStorage.setItem(
             JSON.stringify(data[0].name),
             JSON.stringify(data[0].name)
@@ -36,27 +37,27 @@ function geoLatLon(event) {
             cityListRender();
             weatherRetrieve(data);
         });
-        }
+        } 
     });
     } else {
         modalEl.css('display', 'block')
     }
 }
 
+// Hide Modal
 function hideModal (event) {
     event.stopPropagation();
     modalEl.css('display', 'none')
 }
 
+// Function render recent city weather
 function recentCity(event) {
     event.stopPropagation();
 
   var cityIndex = event.target.getAttribute('data-index');
-  console.log(cityIndex)
   fetch(geocodeAPI + "&q=" + cityIndex).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        console.log(data);
         localStorage.setItem(
           JSON.stringify(data[0].name),
           JSON.stringify(data[0].name)
@@ -67,6 +68,7 @@ function recentCity(event) {
   });
 }
 
+// retrieve weather based on lat and lon
 function weatherRetrieve(data) {
   var lat = `&lat=${data[0].lat}`;
   var lon = `&lon=${data[0].lon}`;
@@ -88,6 +90,7 @@ function weatherRetrieve(data) {
   });
 }
 
+// Display Current Weather Function
 function currentWeather(data, weather) {
   currentConditions = []
   currentWeatherEl.css("display", "block");
@@ -120,18 +123,22 @@ function currentWeather(data, weather) {
   });
   if (0 <= weather.current.uvi && weather.current.uvi < 3) {
     currentWeatherList[0].childNodes[3].style.backgroundColor = 'green'
+    currentWeatherList[0].childNodes[3].style.color = 'white'
   } 
   
   if (2 < weather.current.uvi && weather.current.uvi < 6) {
     currentWeatherList[0].childNodes[3].style.backgroundColor = 'yellow'
+    currentWeatherList[0].childNodes[3].style.color = 'black'
   } 
   
   if (5 < weather.current.uvi && weather.current.uvi < 8) {
     currentWeatherList[0].childNodes[3].style.backgroundColor = 'orange'
+    currentWeatherList[0].childNodes[3].style.color = 'black'
   } 
   
   if (7 < weather.current.uvi && weather.current.uvi < 10) {
     currentWeatherList[0].childNodes[3].style.backgroundColor = 'red'
+    currentWeatherList[0].childNodes[3].style.color = 'white'
   }
 
   if (9 < weather.current.uvi) {
@@ -140,12 +147,12 @@ function currentWeather(data, weather) {
   }
 }
 
+// Diplay 5-day Forecast
 function forecastWeather (weather) {
     forecastArray = []
     cityInputEl.val('');
     $('ul').remove('.forecast-day')
     forecastTitle.css('display', 'block')
-    console.log(weather)
     for (i = 0; i < 5; i++) {
         var forecastIcon = weather.daily[i].weather[0].icon
         var forecastTemp = `Temperature: ${weather.daily[i].temp.max}°F`
@@ -159,11 +166,10 @@ function forecastWeather (weather) {
             wind: forecastWind,
             humid: forecastHumid
         }
-        console.log(forecastObj)
         forecastArray.push(forecastObj)
     } 
     forecastArray.forEach(function (day) {
-        var dayUl = $('<ul>').addClass('forecast-day text-white p-2')
+        var dayUl = $('<ul>').addClass('forecast-day text-white p-2 col-12 col-md-8 col-lg-2')
         var dateLi = $('<li>').addClass('list-unstyled forecast-date')
         var iconLi = $('<li>').addClass('list-unstyled forecast-icon')
         var iconImg = $('<img>').addClass('list-unstyled').attr('src', "http://openweathermap.org/img/wn/" + day.icon + "@2x.png")
@@ -182,12 +188,12 @@ function forecastWeather (weather) {
     })
 }
 
+// Add City to recent cities list
 function cityListRender () {
     citiesArray = [];
     var cities = Object.keys(localStorage)
     for (i = 0; i < cities.length; i++) {
         var citiesList = JSON.parse(localStorage.getItem(cities[i]))
-        console.log(citiesList)
         citiesArray.push(citiesList)
     }
 
@@ -203,6 +209,7 @@ function cityListRender () {
     })
 }
 
+// Remove city function 
 function removeCity(event) {
     event.stopPropagation();
 
@@ -213,9 +220,11 @@ function removeCity(event) {
 
 }
 
+// Event listeners
 searchEl.on("click", ".btn", geoLatLon);
 cityListEl.on('click', '.remove', removeCity)
 cityListEl.on('click', '.city-select', recentCity)
 modalEl.on('click', '.close', hideModal)
 
+// Render Recent Cities on page load
 cityListRender();

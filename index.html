@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Stylesheets -->
     <script
       src="https://kit.fontawesome.com/08542f0c26.js"
       crossorigin="anonymous"
@@ -14,6 +15,7 @@
     <title>Weather Dashboard App</title>
 </head>
 <body>
+    <!-- Modal if City is left blank -->
     <div id="addModal">
         <div class="modal-content d-flex align-items-center">
           <span class="close mr-2">&times;</span>
@@ -24,9 +26,10 @@
         <h1 class="display-4">Weather Dashboard</h1>
     </header>
     <main class="row ml-0 w-100 bg-secondary pb-3">
+        <!-- Search Area and Recent City List Display -->
         <section class="col-12 col-md-6 col-lg-3 d-flex flex-column">
             <article id="search" class="d-flex flex-row justify-content-center align-items-center h-25">
-                <textarea class="textinput rounded overflow-auto" type="text"></textarea>
+                <textarea class="textinput rounded overflow-auto" type="text" placeholder="Enter a city"></textarea>
                 <button id="search-button" class="btn btn-info mr-1">Search <i class="fa-solid fa-cloud-sun"></i></button>
             </article>
             <article class="ml-1 city-list rounded overflow-auto">
@@ -35,8 +38,9 @@
                 </ul>
             </article>
         </section>
+        <!-- Weather Display for Current and Forecasted Weather -->
         <section class="col-12 col-md-6 col-lg-9 d-flex flex-column">
-            <article id="current-container" class="w-100 bg-white">
+            <article id="current-container" class="w-100 bg-white mt-2">
                 <ul id="title-date" class="list-inline ml-2">
 
                 </ul>
@@ -48,13 +52,14 @@
                 <div class="d-flex justify-content-center">
                     <h4 id="foreTitle" class="text-white p-2 mt-2">5-day Forecast:</h4>
                 </div>
-                <div class="forecastList d-flex flex-row justify-content-around">
+                <div class="row forecastList d-flex flex-row justify-content-around">
 
                 </div>
             </article>
         </section>
     </main>
     <footer class="d-flex justify-content-center align-items-center text-white"></footer>
+    <!-- Logic sources -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
