@@ -1,15 +1,15 @@
 var cityInputEl = $(".textinput");
 var searchEl = $("#search");
 var recentCities = $("#recentCities");
-var oneCallAPI =
-  "https://api.openweathermap.org/data/2.5/onecall?appid=9b35244b1b7b8578e6c231fd7654c186";
-var geocodeAPI =
-  "http://api.openweathermap.org/geo/1.0/direct?appid=38f3fd5cbf0a51883a0c1bfa964630af";
 var currentWeatherList = $("#currentWeather");
 var currentWeatherEl = $("#current-container");
 var currentTitleList = $("#title-date");
 var forecastEl = $('.forecast')
 var cityListEl = $('.city-list')
+var oneCallAPI =
+  "https://api.openweathermap.org/data/2.5/onecall?appid=9b35244b1b7b8578e6c231fd7654c186";
+var geocodeAPI =
+  "http://api.openweathermap.org/geo/1.0/direct?appid=38f3fd5cbf0a51883a0c1bfa964630af";
 var currentDate = moment()
 
 var citiesArray = [];
@@ -59,6 +59,7 @@ function weatherRetrieve(data) {
   var lon = `&lon=${data[0].lon}`;
   currentWeatherList.empty();
   currentTitleList.empty();
+  currentDate = moment();
   fetch(
     oneCallAPI +
       lat +
@@ -128,12 +129,13 @@ function currentWeather(data, weather) {
 
 function forecastWeather (weather) {
     forecastArray = []
+    $('ul').remove('.forecast-day')
     console.log(weather)
     for (i = 0; i < 5; i++) {
         var forecastIcon = weather.daily[i].weather[0].icon
-        var forecastTemp = `Temperature: ${weather.daily[i].temp.max}`
-        var forecastWind = `Wind Speed: ${weather.daily[i].wind_speed}`
-        var forecastHumid = `Humidity: ${weather.daily[i].humidity}`
+        var forecastTemp = `Temperature: ${weather.daily[i].temp.max}°F`
+        var forecastWind = `Wind Speed: ${weather.daily[i].wind_speed} MPH`
+        var forecastHumid = `Humidity: ${weather.daily[i].humidity}%`
         var forecastDate = currentDate.add((i+1)-i, 'days').format('MM/DD/YYY')
         var forecastObj = {
             date: forecastDate,
@@ -145,7 +147,24 @@ function forecastWeather (weather) {
         console.log(forecastObj)
         forecastArray.push(forecastObj)
     } 
-    // forecastArray.forEach(day)
+    forecastArray.forEach(function (day) {
+        var dayUl = $('<ul>').addClass('forecast-day')
+        var dateLi = $('<li>').addClass('list-unstyled')
+        var iconLi = $('<li>').addClass('list-unstyled')
+        var iconImg = $('<img>').addClass('list-unstyled').attr('src', "http://openweathermap.org/img/wn/" + day.icon + "@2x.png")
+        var tempLi = $('<li>').addClass('list-unstyled')
+        var windLi = $('<li>').addClass('list-unstyled')
+        var humidLi = $('<li>').addClass('list-unstyled')
+
+        dateLi.text(day.date)
+        tempLi.text(day.temp)
+        windLi.text(day.wind)
+        humidLi.text(day.humid)
+
+        iconLi.append(iconImg)
+        dayUl.append(dateLi, iconLi, tempLi, windLi, humidLi)
+        forecastEl.append(dayUl)
+    })
 }
 
 function cityListRender () {
