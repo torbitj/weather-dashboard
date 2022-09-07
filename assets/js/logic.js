@@ -14,7 +14,7 @@ var closeModal = $('.close')
 var oneCallAPI =
   "https://api.openweathermap.org/data/2.5/onecall?appid=9b35244b1b7b8578e6c231fd7654c186";
 var geocodeAPI =
-  "http://api.openweathermap.org/geo/1.0/direct?appid=38f3fd5cbf0a51883a0c1bfa964630af";
+  "https://api.openweathermap.org/geo/1.0/direct?appid=38f3fd5cbf0a51883a0c1bfa964630af";
 var currentDate = moment()
 
 var citiesArray = [];
