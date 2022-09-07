@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'EB Garamond', serif;
     box-sizing: border-box;
@@ -6,4 +10,27 @@ body {
 
 header {
     background-image: linear-gradient(to left, darkblue, seagreen);
+}
+
+.textinput {
+    resize: none;
+    height: 40px;
+    width: 200px;
+}
+
+#search {
+    height: 200px;
+}
+
+#search-button {
+    font-size: 18px;
+    height: 40px;
+    background-image: linear-gradient(to left, rgba(8, 113, 211, 0.562), rgba(26, 201, 105, 0.562));
+}
+
+#city-list {
+    height: 400px;
+    background-image: linear-gradient(to left, rgba(8, 113, 211, 0.562), rgba(26, 201, 105, 0.562));
+    width: 100%;
+    border: solid 2px darkblue;
 }
