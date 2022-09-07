@@ -31,6 +31,19 @@ footer {
     border: solid 2px darkblue;
 }
 
+.current-heading {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.current-heading img {
+    height: 45px;
+    width: 45px;
+}
+
+.forecast {
+    display: none;
+}
 #search {
     height: 200px;
 }
@@ -39,5 +52,12 @@ footer {
     font-size: 18px;
     height: 40px;
     background-image: linear-gradient(to left, rgba(8, 113, 211, 0.562), rgba(26, 201, 105, 0.562));
+}
+
+#current-container {
+    display: none;
+    height: 250px;
+    border: solid black;
+    border-radius: 15px;
 }
 
