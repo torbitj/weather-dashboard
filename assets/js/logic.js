@@ -61,12 +61,11 @@ function weatherRetrieve(data) {
     oneCallAPI +
       lat +
       lon +
-      "&exclude=hourly,minutely,daily,alerts&units=imperial"
+      "&exclude=hourly,minutely,alerts&units=imperial"
   ).then(function (response) {
     if (response.ok) {
       response.json().then(function (weather) {
-        console.log(weather);
-
+        forecastWeather(weather)
         currentWeather(data, weather);
       });
     }
@@ -86,7 +85,6 @@ function currentWeather(data, weather) {
   var uv = `UV Index is: ${weather.current.uvi}`;
 
   currentConditions.push(temp, humid, wind, uv);
-  console.log(currentConditions);
 
   var heading = $("<li>").addClass("current-heading list-inline-item list-unstyled");
   var dateLi = $("<li>").addClass("current-heading list-inline-item list-unstyled");
@@ -103,7 +101,6 @@ function currentWeather(data, weather) {
     var condLi = $("<li>").addClass("current-condition list-unstyled p-2").attr('data-index', condition);
     condLi.text(condition);
     currentWeatherList.append(condLi);
-    console.log(currentWeatherList[0].childNodes)
   });
   if (0 <= weather.current.uvi && weather.current.uvi < 3) {
     currentWeatherList[0].childNodes[3].style.backgroundColor = 'green'
@@ -125,6 +122,21 @@ function currentWeather(data, weather) {
     currentWeatherList[0].childNodes[3].style.backgroundColor = 'purple'
     currentWeatherList[0].childNodes[3].style.color = 'white'
   }
+}
+
+function forecastWeather (weather) {
+    for (i = 0; i < 5; i++) {
+        var forecastIcon = weather.daily[i].weather[0].icon
+        var forecastTemp = `Temperature: ${weather.daily[i].temp.day}`
+        var forecastWind = `Wind Speed: ${weather.daily[i].wind_speed}`
+        var forecastHumid = `Humidity: ${weather.daily[i].humidity}`
+
+        
+    } 
+    
+    console.log(weather.daily[0])
+    console.log(weather.daily[0].temp.day)
+    console.log(weather.daily[0].weather[0].icon)
 }
 
 function cityListRender () {
