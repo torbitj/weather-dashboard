@@ -167,5 +167,12 @@ footer {
         width:fit-content;
         height: 35px;
       }
+    .textinput {
+        height: 65px;
+    }
+
+    #search-button{
+        height: 65px;
+      }
   }
   
