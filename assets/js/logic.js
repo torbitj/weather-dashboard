@@ -9,21 +9,42 @@ var currentWeatherList = $("#currentWeather");
 var currentWeatherEl = $("#current-container");
 var currentTitleList = $("#title-date");
 var forecastEl = $('.forecast')
+var cityListEl = $('.city-list')
 
-var currentConditions = [];
+var citiesArray = [];
+var currentConditions = []
 
 function geoLatLon(event) {
   event.stopPropagation();
-
+  recentCities.empty()
   var cityInput = cityInputEl.val();
-  console.log(cityInput);
   fetch(geocodeAPI + "&q=" + cityInput).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
         console.log(data);
         localStorage.setItem(
           JSON.stringify(data[0].name),
-          JSON.stringify(`${data[0].lat} ${data[0].lon}`)
+          JSON.stringify(data[0].name)
+        );
+        cityListRender();
+        weatherRetrieve(data);
+      });
+    }
+  });
+}
+
+function recentCity(event) {
+    event.stopPropagation();
+
+  var cityIndex = event.target.getAttribute('data-index');
+  console.log(cityIndex)
+  fetch(geocodeAPI + "&q=" + cityIndex).then(function (response) {
+    if (response.ok) {
+      response.json().then(function (data) {
+        console.log(data);
+        localStorage.setItem(
+          JSON.stringify(data[0].name),
+          JSON.stringify(data[0].name)
         );
         weatherRetrieve(data);
       });
@@ -53,7 +74,7 @@ function weatherRetrieve(data) {
 }
 
 function currentWeather(data, weather) {
-  currentConditions = [];
+  currentConditions = []
   currentWeatherEl.css("display", "block");
   forecastEl.css('display', 'block')
   var date = moment().format("MM/DD/YYYY");
@@ -106,4 +127,39 @@ function currentWeather(data, weather) {
   }
 }
 
+function cityListRender () {
+    citiesArray = [];
+    var cities = Object.keys(localStorage)
+    for (i = 0; i < cities.length; i++) {
+        var citiesList = JSON.parse(localStorage.getItem(cities[i]))
+        console.log(citiesList)
+        citiesArray.push(citiesList)
+    }
+
+    citiesArray.forEach(function (city) {
+        var cityLi = $('<li>').attr('data-index', city).addClass('city-select list-unstyled m-1 p-1 text-white');
+        var removeCity = $('<button>').attr('type', 'button').addClass('remove bg-danger m-2 rounded');
+
+        cityLi.text(city)
+        removeCity.text('X')
+
+        recentCities.append(cityLi);
+        cityLi.append(removeCity);
+    })
+}
+
+function removeCity(event) {
+    event.stopPropagation();
+
+    var index = event.target.parentElement.getAttribute('data-index');
+    citiesArray.splice(index, 1)
+    localStorage.removeItem(JSON.stringify(index));
+    event.target.parentElement.remove(index)
+
+}
+
 searchEl.on("click", ".btn", geoLatLon);
+cityListEl.on('click', '.remove', removeCity)
+cityListEl.on('click', '.city-select', recentCity)
+
+cityListRender();

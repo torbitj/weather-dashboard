@@ -49,6 +49,20 @@ footer {
 .forecast {
     display: none;
 }
+
+.city-select {
+    border: solid darkblue 2px;
+    border-radius: 10px;
+    width: fit-content;
+    font-size: 18px;
+    font-weight: 300px;
+}
+
+.city-select:hover {
+    background-color: rgba(0, 2, 116, 0.363);
+    cursor: pointer;
+}
+
 #search {
     height: 200px;
 }
