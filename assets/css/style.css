@@ -9,7 +9,13 @@ body {
 }
 
 header {
+    
     background-image: linear-gradient(to left, darkblue, seagreen);
+}
+
+footer {
+    background-image: linear-gradient(to left, darkblue, seagreen);
+    height: 40px;
 }
 
 .textinput {
