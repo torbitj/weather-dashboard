@@ -5,7 +5,11 @@ var currentWeatherList = $("#currentWeather");
 var currentWeatherEl = $("#current-container");
 var currentTitleList = $("#title-date");
 var forecastEl = $('.forecast')
+var forecastTitle = $('#foreTitle')
+var forecastListEl = $('.forecastList')
 var cityListEl = $('.city-list')
+var modalEl = $('#addModal')
+var closeModal = $('.close')
 var oneCallAPI =
   "https://api.openweathermap.org/data/2.5/onecall?appid=9b35244b1b7b8578e6c231fd7654c186";
 var geocodeAPI =
@@ -20,19 +24,28 @@ function geoLatLon(event) {
   event.stopPropagation();
   recentCities.empty()
   var cityInput = cityInputEl.val();
-  fetch(geocodeAPI + "&q=" + cityInput).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        console.log(data);
-        localStorage.setItem(
-          JSON.stringify(data[0].name),
-          JSON.stringify(data[0].name)
-        );
-        cityListRender();
-        weatherRetrieve(data);
-      });
+  if (cityInput !== "") {
+    fetch(geocodeAPI + "&q=" + cityInput).then(function (response) {
+        if (response.ok) {
+        response.json().then(function (data) {
+            console.log(data);
+            localStorage.setItem(
+            JSON.stringify(data[0].name),
+            JSON.stringify(data[0].name)
+            );
+            cityListRender();
+            weatherRetrieve(data);
+        });
+        }
+    });
+    } else {
+        modalEl.css('display', 'block')
     }
-  });
+}
+
+function hideModal (event) {
+    event.stopPropagation();
+    modalEl.css('display', 'none')
 }
 
 function recentCity(event) {
@@ -129,14 +142,16 @@ function currentWeather(data, weather) {
 
 function forecastWeather (weather) {
     forecastArray = []
+    cityInputEl.val('');
     $('ul').remove('.forecast-day')
+    forecastTitle.css('display', 'block')
     console.log(weather)
     for (i = 0; i < 5; i++) {
         var forecastIcon = weather.daily[i].weather[0].icon
         var forecastTemp = `Temperature: ${weather.daily[i].temp.max}°F`
         var forecastWind = `Wind Speed: ${weather.daily[i].wind_speed} MPH`
         var forecastHumid = `Humidity: ${weather.daily[i].humidity}%`
-        var forecastDate = currentDate.add((i+1)-i, 'days').format('MM/DD/YYY')
+        var forecastDate = currentDate.add((i+1)-i, 'days').format('MM/DD/YYYY')
         var forecastObj = {
             date: forecastDate,
             icon: forecastIcon,
@@ -148,9 +163,9 @@ function forecastWeather (weather) {
         forecastArray.push(forecastObj)
     } 
     forecastArray.forEach(function (day) {
-        var dayUl = $('<ul>').addClass('forecast-day')
-        var dateLi = $('<li>').addClass('list-unstyled')
-        var iconLi = $('<li>').addClass('list-unstyled')
+        var dayUl = $('<ul>').addClass('forecast-day text-white p-2')
+        var dateLi = $('<li>').addClass('list-unstyled forecast-date')
+        var iconLi = $('<li>').addClass('list-unstyled forecast-icon')
         var iconImg = $('<img>').addClass('list-unstyled').attr('src', "http://openweathermap.org/img/wn/" + day.icon + "@2x.png")
         var tempLi = $('<li>').addClass('list-unstyled')
         var windLi = $('<li>').addClass('list-unstyled')
@@ -163,7 +178,7 @@ function forecastWeather (weather) {
 
         iconLi.append(iconImg)
         dayUl.append(dateLi, iconLi, tempLi, windLi, humidLi)
-        forecastEl.append(dayUl)
+        forecastListEl.append(dayUl)
     })
 }
 
@@ -178,7 +193,7 @@ function cityListRender () {
 
     citiesArray.forEach(function (city) {
         var cityLi = $('<li>').attr('data-index', city).addClass('city-select list-unstyled m-1 p-1 text-white');
-        var removeCity = $('<button>').attr('type', 'button').addClass('remove bg-danger m-2 rounded');
+        var removeCity = $('<button>').attr('type', 'button').addClass('remove m-2 rounded text-white');
 
         cityLi.text(city)
         removeCity.text('X')
@@ -201,5 +216,6 @@ function removeCity(event) {
 searchEl.on("click", ".btn", geoLatLon);
 cityListEl.on('click', '.remove', removeCity)
 cityListEl.on('click', '.city-select', recentCity)
+modalEl.on('click', '.close', hideModal)
 
 cityListRender();
