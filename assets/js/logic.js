@@ -84,19 +84,19 @@ function currentWeather(data, weather) {
     currentWeatherList.append(condLi);
     console.log(currentWeatherList[0].childNodes)
   });
-  if (0 < weather.current.uvi < 3) {
+  if (0 <= weather.current.uvi && weather.current.uvi < 3) {
     currentWeatherList[0].childNodes[3].style.backgroundColor = 'green'
   } 
   
-  if (2 < weather.current.uvi < 6) {
+  if (2 < weather.current.uvi && weather.current.uvi < 6) {
     currentWeatherList[0].childNodes[3].style.backgroundColor = 'yellow'
   } 
   
-  if (5 < weather.current.uvi < 8) {
+  if (5 < weather.current.uvi && weather.current.uvi < 8) {
     currentWeatherList[0].childNodes[3].style.backgroundColor = 'orange'
   } 
   
-  if (7 < weather.current.uvi < 10) {
+  if (7 < weather.current.uvi && weather.current.uvi < 10) {
     currentWeatherList[0].childNodes[3].style.backgroundColor = 'red'
   }
 
