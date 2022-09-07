@@ -18,6 +18,13 @@ header {
     width: 200px;
 }
 
+.city-list {
+    height: 400px;
+    background-image: linear-gradient(to left, rgba(8, 113, 211, 0.562), rgba(26, 201, 105, 0.562));
+    width: 100%;
+    border: solid 2px darkblue;
+}
+
 #search {
     height: 200px;
 }
@@ -28,9 +35,3 @@ header {
     background-image: linear-gradient(to left, rgba(8, 113, 211, 0.562), rgba(26, 201, 105, 0.562));
 }
 
-#city-list {
-    height: 400px;
-    background-image: linear-gradient(to left, rgba(8, 113, 211, 0.562), rgba(26, 201, 105, 0.562));
-    width: 100%;
-    border: solid 2px darkblue;
-}
