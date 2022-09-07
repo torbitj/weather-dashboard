@@ -201,7 +201,7 @@ function forecastWeather(weather) {
 function cityListRender() {
   citiesArray = [];
   var cities = Object.keys(localStorage);
-  if (cities !== null) {
+  if (cities.length !== 0) {
     for (i = 0; i < cities.length; i++) {
       var citiesList = JSON.parse(localStorage.getItem(cities[i]));
       citiesArray.push(citiesList);
