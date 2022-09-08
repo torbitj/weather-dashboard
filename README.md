@@ -16,5 +16,6 @@ https://github.com/ffjt07/weather-dashboard
 
 ## Preview
 
-![Weather Dashboard Preview]()
+![Weather Dashboard Preview](./assets/images/weather-dashboard-app-preview.gif)
+
 
