@@ -113,7 +113,7 @@ function currentWeather(data, weather) {
   );
   var iconImg = $("<img>")
     .addClass("current-icon")
-    .attr("src", "http://openweathermap.org/img/wn/" + icon + "@2x.png");
+    .attr("src", "https://openweathermap.org/img/wn/" + icon + "@2x.png");
   heading.text(`${city} `);
   dateLi.text(date);
   iconLi.append(iconImg);
@@ -181,7 +181,7 @@ function forecastWeather(weather) {
     var iconLi = $("<li>").addClass("list-unstyled forecast-icon");
     var iconImg = $("<img>")
       .addClass("list-unstyled")
-      .attr("src", "http://openweathermap.org/img/wn/" + day.icon + "@2x.png");
+      .attr("src", "https://openweathermap.org/img/wn/" + day.icon + "@2x.png");
     var tempLi = $("<li>").addClass("list-unstyled");
     var windLi = $("<li>").addClass("list-unstyled");
     var humidLi = $("<li>").addClass("list-unstyled");
