@@ -8,11 +8,11 @@ Ultimately, this is an easy-to-use weather app where users can search cities to 
 
 ## Live Link
 
-https://ffjt07.github.io/weather-dashboard/
+https://torbitj.github.io/weather-dashboard/
 
 ## Github Link
 
-https://github.com/ffjt07/weather-dashboard
+https://github.com/torbitj/weather-dashboard
 
 ## Preview
 
